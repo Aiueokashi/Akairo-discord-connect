@@ -26,13 +26,13 @@ class Util {
 		throw new TypeError(`${mode} base64 mode is not supported`);
 	}
 
-  static fetchData(url = '') {
-    return fetch(url).then(res => res.json());
-  }
-  static txfetchData(url = ''){
-    return fetch(url).then(res=>res.text());
-  }
-  static async reactIfAble(msg, user, emoji, fallbackEmoji) {
+  	static fetchData(url = '') {
+    		return fetch(url).then(res => res.json());
+  	}
+  	static txfetchData(url = ''){
+    		return fetch(url).then(res=>res.text());
+  	}
+  	static async reactIfAble(msg, user, emoji, fallbackEmoji) {
 		const dm = !msg.guild;
 		if (fallbackEmoji && (!dm && !msg.channel.permissionsFor(user).has('USE_EXTERNAL_EMOJIS'))) {
 			emoji = fallbackEmoji;
