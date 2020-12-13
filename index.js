@@ -81,8 +81,36 @@ client.setup();
 client.on('message', msg => runLint(msg));
 
 client.on('messageUpdate', (oldMsg, msg) => runLint(msg));
-
+const sendtime = {}
 client.on('ready', async() => {
+    sendtime[client.channels.cache.get('766162642682511400')] = Date.now();
+	const logchannel = client.channels.cache.get('766162642682511400');
+	logchannel.send('pinging...').then(function(t) {
+		t.edit(
+			new discord.MessageEmbed()
+				.setColor("RED")
+				.setTitle('再起動')
+				.setDescription(
+					`ping:${Date.now() -
+						sendtime[client.channels.cache.get('766162642682511400')]} ms`
+				)
+				.setFooter(`${client.user.tag} ディレクトリ:Akairo-discord`)
+		);
+	});
+  sendtime[client.channels.cache.get('777400049893113876')] = Date.now();
+	const logchannel2 = client.channels.cache.get('777400049893113876');
+	logchannel2.send('pinging...').then(function(t) {
+		t.edit(
+			new discord.MessageEmbed()
+				.setColor('RED')
+				.setTitle('再起動')
+				.setDescription(
+					`ping:${Date.now() -
+						sendtime[client.channels.cache.get('777400049893113876')]} ms`
+				)
+				.setFooter(`${client.user.tag} ディレクトリ:ManagementSystem(管理部分)`)
+		);
+	});
   const event = await Util.fetchData("https://raw.githubusercontent.com/Sekai-World/sekai-master-db-diff/master/events.json")
   let status ;
   const eventTracker = await Util.fetchData(`https://bitbucket.org/sekai-world/sekai-event-track/raw/f335a3f5c401b4e3b0aad27bec3573f00c3682cf/event7.json`)
