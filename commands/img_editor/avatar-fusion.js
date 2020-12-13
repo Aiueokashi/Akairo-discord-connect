@@ -1,24 +1,11 @@
 const { Command } = require('discord-akairo');
 const { createCanvas, loadImage } = require('canvas');
 const request = require('node-superfetch');
-const discord = require('discord.js')
-const client = new discord.Client()
 module.exports = class AvatarFusionCommand extends Command {
 	constructor() {
 		super('avatar-fusion', {
 			aliases: ['avatar-fuse', 'ava-fuse','avafuse'],
-			description: 'Draws a a user\'s avatar over a user\'s avatar.',
-			/*args: [
-				{
-					key: 'overlay',
-					type: 'member'
-				},  
-				{
-					key: 'base',
-					type: 'member',
-					default: msg => msg.member
-				}
-      ],*/
+			description: 'アバター重ね書き',
       channel:"guild"
 		});
 	}

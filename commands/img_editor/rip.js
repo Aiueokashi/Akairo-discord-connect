@@ -9,21 +9,6 @@ module.exports = class RipCommand extends Command {
 	constructor() {
 		super('rip', {
 			aliases: ['grave', 'grave-stone','rip'],
-		/*	args: [
-				{
-					key: 'user',
-					prompt: 'Which user would you like to edit the avatar of?',
-					type: 'user',
-					default: msg => msg.author
-				},
-				{
-					key: 'cause',
-					label: 'cause of death',
-					prompt: 'What was the cause of death?',
-					type: 'string',
-					default: ''
-				}
-			]*/
 		});
 	}
 
