@@ -1,35 +1,39 @@
 const { Command } = require('discord-akairo');
 const request = require('node-superfetch');
 const { Readable } = require('stream');
-const { reactIfAble } = require('../../util/Util');
+const { list, reactIfAble } = require('../../util/Util');
+const voices = require('./../../assets/json/vocodes');
 
-module.exports = class SayCommand extends Command {
+module.exports = class VocodesCommand extends Command {
 	constructor() {
-		super("say", {
-			aliases: ['say'],
+		super("vocodes", {
+			aliases: ['vsay'],
       prefix:"ps!",
-			description: 'test-to-speak',
 			args: [
 				{
 					key: 'text',
-					type: 'string'
+					type: 'string',
 				}
 			]
 		});
 	}
 
-	async exec(msg,args) {
-    const txt = args.text
+	async exec(msg, args) {
+    const txt = args.text;
+    const voice = "sonic";
 		const connection = this.client.voice.connections.get(msg.guild.id);
 		if (!connection) {
 			return msg.reply(`\`ps!join\`を先に使用して下さい`);
 		}
 		try {
-			await reactIfAble(msg, this.client.user, "thinking", '💬');
+			await reactIfAble(msg, this.client.user,'💬', '💬');
 			const { body } = await request
-				.get('http://tts.cyzon.us/tts')
-				.query({ txt });
-			connection.play(Readable.from([body]));
+				.post('https://mumble.stream/speak_spectrogram')
+				.send({
+					speaker: voice,
+					text
+				});
+			connection.play(Readable.from([Buffer.from(body.audio_base64, 'base64')]));
 			await reactIfAble(msg, this.client.user, '🔉');
 			return null;
 		} catch (err) {

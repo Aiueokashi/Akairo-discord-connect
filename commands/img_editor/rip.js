@@ -15,7 +15,10 @@ module.exports = class RipCommand extends Command {
 	async exec(msg) {
 	  const [command, ...args] = msg.content.slice(2).split(' ');
 	  let user = msg.mentions.users.first();
-	  let cause = args[1]
+    let cause = "";
+	  for(let i = 1; i <args.length;i++){
+      cause = cause + args[i] + " "
+    }
 		const avatarURL = user.displayAvatarURL({ format: 'png', size: 512 });
 		try {
 			const base = await loadImage(path.join(__dirname, '..', '..', 'assets', 'images', 'rip.png'));
@@ -34,7 +37,7 @@ module.exports = class RipCommand extends Command {
 			ctx.fillStyle = 'white';
 			if (cause) ctx.fillText(cause, 438, 910, 500);
 			ctx.font = '37px Coffin Stone';
-			ctx.fillText('In Loving Memory of', 438, 292);
+			ctx.fillText('RIP', 438, 292);
 			return msg.channel.send({ files: [{ attachment: canvas.toBuffer(), name: 'rip.png' }] });
 		} catch (err) {
 			return msg.reply(`ERROR: \`${err.message}\`.`);

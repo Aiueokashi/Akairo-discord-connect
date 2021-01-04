@@ -4,7 +4,7 @@ const { stripIndents } = require('common-tags');
 const path = require('path');
 const owners = require('./owners');
 const discord = require('discord.js')
-client = new discord.Client()
+
 const reactfilter = (reaction, user) => user.id === message.author.id && reaction.emoji.name === '❎'
 module.exports = class EvalCommand extends Command {
 	constructor() {

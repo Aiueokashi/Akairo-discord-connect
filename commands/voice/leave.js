@@ -3,6 +3,7 @@ module.exports = class LeaveCommand extends Command {
 	constructor() {
 		super('leave', {
 			aliases: ['remove','leave'],
+      prefix:"ps!",
 			category: 'voice',
 			description: 'Leaves the current voice channel.',
 			guildOnly: true,

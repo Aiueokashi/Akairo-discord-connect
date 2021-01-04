@@ -13,6 +13,7 @@ module.exports = class EvalCommand extends Command {
 			category: 'util',
 			description: 'Executes JavaScript code.',
 			ownerOnly: true,
+      typing:true,
 			args: [
 				{
 					id: 'script',

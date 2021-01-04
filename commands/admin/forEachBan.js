@@ -4,44 +4,42 @@ const { stripIndents } = require('common-tags');
 const path = require('path');
 const owners = require('./owners');
 const discord = require("discord.js")
-
-module.exports = class BanCommand extends Command {
+module.exports = class ForEachBanCommand extends Command {
 	constructor() {
-		super('ban', {
-			aliases: ['ban'],
+		super('loopBan', {
+			aliases: ['loopBan'],
 			category: 'admin',
-			description: 'ban command',
+			description: 'forEach ban command',
 			ownerOnly: true,
 			typing: false
 		});
 	}
 	exec(msg) {
 		const prefix = process.env.AUTO_PREFIX;
-		const [...args] = msg.content.slice(prefix.length + 4).split(' ');
-    if(owners.includes(args[0])){
-      return msg.channel.send("その人はbanできません")
-      };
-		if (!args[0]) return;
-		if (!args[1]) return;
-		if (owners.includes(msg.author.id)) {
-			msg.guild.members
-				.ban(args[0],{reason:`${args[1]}`})
+		const [...args] = msg.content.slice(prefix.length + 7).split(' ');
+    for (let i = 0; i < args.length; i++){
+      if(owners.includes(args[i])){
+        return msg.channel.send("この人はbanできません。処理を強制終了します。")
+      }
+      if (owners.includes(msg.author.id)){
+      msg.guild.members
+				.ban(args[i],{reason:`loop Bans`})
 				.then(
 					user =>
 						msg.channel.send(
 							new discord.MessageEmbed()
 								.setColor('RED')
-								.setTitle('BANNED MEMBER(or USER)')
+								.setTitle('LOOP BANNED MEMBER(or USER)')
 								.setDescription(
 									`[BAN]:${user.tag || user.id || user}\n [MODERATOR]:${
 										msg.author.tag
 									}`
 								)
-								.addField(`[REASON]:`, args[1])
 								.setTimestamp()
 						)
 				)
-				.catch(error=>msg.channel.send(error));
-		}
+      }
+    }
+
 	}
 };

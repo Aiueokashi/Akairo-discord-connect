@@ -4,9 +4,8 @@ module.exports = class JoinCommand extends Command {
 		super('join', {
 			aliases: ['join','shovel', 'join-vc', 'join-voice', 'join-channel'],
 			category: 'voice',
+      prefix:"ps!",
 			description: 'Joins your voice channel.',
-			guildOnly: true,
-			guarded: true,
 			userPermissions: ['CONNECT']
 		});
 	}
