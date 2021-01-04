@@ -7,7 +7,7 @@ module.exports = class RoleCommand extends Command {
 		super('role', {
 			aliases: ['role-info','role-fetch','rolef'],
 			description: 'Responds with detailed information on a role.',
-			ownerOnly: true,
+			ownerOnly: false,
 			args: [
 				{
 					key: 'role',
@@ -17,6 +17,14 @@ module.exports = class RoleCommand extends Command {
 			]
 		});
 	}
+  
+  userPermissions(msg) {
+    const operator = require("./operation")
+    if (!operator.includes(msg.author.id)) {
+        return 'operator';
+    }
+      return null;
+    }
 
 	exec(msg) {
     const [command, ...args] = msg.content.slice(3).split(' ');

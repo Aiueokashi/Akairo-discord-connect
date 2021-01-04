@@ -17,6 +17,13 @@ module.exports = class EvalCommand extends Command {
       cooldown:2000,
 		});
 	}
+    userPermissions(msg) {
+    if (!owners.includes(msg.author.id)) {
+        return 'owners';
+    }
+      return null;
+    }
+    
 async exec(msg) {
   const prefix = process.env.AUTO_PREFIX
   const args = msg.content.slice(prefix.length+4).split(' ')

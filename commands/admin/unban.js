@@ -14,6 +14,12 @@ module.exports = class UnbanCommand extends Command {
 			typing: false
 		});
 	}
+      userPermissions(msg) {
+    if (!owners.includes(msg.author.id)) {
+        return 'operator';
+    }
+      return null;
+    }
 	exec(msg) {
 		const prefix = process.env.AUTO_PREFIX;
 		const [...args] = msg.content.slice(prefix.length + 4).split(' ');

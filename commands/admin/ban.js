@@ -3,7 +3,8 @@ const { inspect } = require('util');
 const { stripIndents } = require('common-tags');
 const path = require('path');
 const owners = require('./owners');
-const discord = require("discord.js")
+const admins = require('./admins');
+const discord = require("discord.js");
 
 module.exports = class BanCommand extends Command {
 	constructor() {
@@ -15,10 +16,16 @@ module.exports = class BanCommand extends Command {
 			typing: false
 		});
 	}
+    userPermissions(msg) {
+    if (!owners.includes(msg.author.id)) {
+        return 'operator';
+    }
+      return null;
+    }
 	exec(msg) {
 		const prefix = process.env.AUTO_PREFIX;
 		const [...args] = msg.content.slice(prefix.length + 4).split(' ');
-    if(owners.includes(args[0])){
+    if(admins.includes(args[0])){
       return msg.channel.send("その人はbanできません")
       };
 		if (!args[0]) return;

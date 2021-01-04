@@ -24,7 +24,7 @@ module.exports = class UserCommand extends Command {
 		super('user', {
 			aliases: ['user-fetch', 'memberf', 'member-fetch', 'userf'],
 			description: 'Responds with detailed information on a user.',
-      ownerOnly:true,
+      ownerOnly:false,
 			/*args: [
 				{
 					key: 'member',
@@ -35,6 +35,15 @@ module.exports = class UserCommand extends Command {
 			]*/
 		});
 	}
+
+  
+  userPermissions(msg) {
+    const operator = require("./operation")
+    if (!operator.includes(msg.author.id)) {
+        return 'operator';
+    }
+      return null;
+    }
 
 	async exec(msg) {
         const [command, ...args] = msg.content.slice(2).split(' ');

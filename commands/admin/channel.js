@@ -1,6 +1,9 @@
 const {Command} = require('discord-akairo');
 const moment = require('moment');
 const { MessageEmbed } = require('discord.js');
+
+const discord = require("discord.js")
+const client = new discord.Client();
 const types = {
 	dm: 'DM',
 	group: 'Group DM',
@@ -18,9 +21,17 @@ module.exports = class ChannelCommand extends Command {
 		});
 	}
 
+  userPermissions(msg) {
+    const operator = require("./operation")
+    if (!operator.includes(msg.author.id)) {
+        return 'operator';
+    }
+      return null;
+    }
+
 	exec(msg) {
 	   const [command, ...args] = msg.content.slice(2).split(' ');
-    	const channel = client.channels.get(`${args.join(' ')}`);
+    	const channel = msg.mentions.channels.first() || msg.channel
 		const embed = new MessageEmbed()
 			.setColor(0x00AE86)
 			.addField('❯ Name', channel.type === 'dm' ? `@${channel.recipient.username}` : channel.name, true)
